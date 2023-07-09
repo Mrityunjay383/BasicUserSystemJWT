@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require("../model/user");
 
-//Checking if the token if valid or not
+//Checking if the token is valid or not
 const valToken = async (req, res, next) => {
   try {
     // looking for token in the header
@@ -14,8 +14,9 @@ const valToken = async (req, res, next) => {
 
     const token = authHeaderVal.replace("Bearer ", ""); //replacing Bearer from token if getting from header
 
-    const data = jwt.verify(token, process.env.SECRET_KEY); //verifing token with the secret key
-    req.userData = data;
+
+     //verifing token with the secret key
+    req.userData = jwt.verify(token, process.env.SECRET_KEY);
     next();
 
   } catch (e) {
